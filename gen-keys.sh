@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 keyname="default"
 if [ -z $1 ]; then
@@ -8,7 +8,7 @@ else
     keyname=$1
 fi
 
-source values.sh 
+. ./values.sh 
 
 echo "GENERATE $keyname"
 openssl req -new -keyform PEM -keyout "${keyname}.key" -outform PEM -out "${keyname}.csr" -nodes -newkey rsa:$size -subj "${subj}"
