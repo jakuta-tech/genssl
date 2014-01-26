@@ -14,4 +14,7 @@ if [ "$ca_protect" = "no" ]; then
     ca_extra_opts="${ca_extra_opts} -nodes"
 fi
 
-openssl req -new -x509 -keyout "${ca_name}.ca.key" -keyform $format -out "${ca_name}.ca.crt" -outform $format -days $ca_days -newkey rsa:$ca_size -subj "${ca_subj}" ${ca_extra_opts}
+openssl req -new -x509 -keyout "${ca_name}.ca.key" -keyform ${format} \
+    -out "${ca_name}.ca.crt" -outform ${format} \
+    -days $ca_days -newkey rsa:$ca_size \
+    -subj "${ca_subj}" ${ca_extra_opts}
