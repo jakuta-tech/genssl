@@ -4,7 +4,17 @@ if [ ! -z "${1}" ]; then
     name="${1}"
 fi
 
-. ./values.sh || exit 1
+if [ ! -e values.sh ]; then
+    cat values.sample.sh > values.sh
+    chmod +x values.sh
+fi
+
+. ./values.sh
+
+if [ ! -e ${ca_name}.crt ]||[ ! -e ${ca_name}.key ]; then
+    echo "Generate the CA first." 1>&2
+    exit 1
+fi
 
 if [ "$protect" = "no" ]; then
     extra_opts="${extra_opts} -nodes"
