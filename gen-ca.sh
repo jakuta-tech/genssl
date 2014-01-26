@@ -4,6 +4,10 @@ if [ ! -e serial ]; then
     echo -n '01' > serial
 fi
 
+if [ ! -e values.sh ]; then
+    cat values.sample.sh > values.sh
+    chmod +x values.sh
+fi
 . ./values.sh
 
 if [ "$ca_protect" = "no" ]; then

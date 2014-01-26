@@ -8,7 +8,7 @@ else
     keyname=$1
 fi
 
-. ./values.sh 
+. ./values.sh || exit 1
 
 if [ "$protect" = "no" ]; then
     extra_opts="${extra_opts} -nodes"
