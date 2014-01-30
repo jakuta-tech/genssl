@@ -11,7 +11,7 @@ fi
 
 . ./values.sh
 
-if [ ! -e ${ca_name}.ca.crt ]||[ ! -e ${ca_name}.ca.key ]; then
+if [ ! -e ca/certs/${ca_name}.ca.crt ]||[ ! -e ca/keys/${ca_name}.ca.key ]; then
     echo "Generate the CA first." 1>&2
     exit 1
 fi
@@ -21,11 +21,11 @@ if [ "$protect" = "no" ]; then
 fi
 
 echo "GENERATE $name" 1>&2
-openssl req -new -keyform ${format} -keyout "${name}.key" \
-    -outform ${format} -out "${name}.csr" -nodes \
+openssl req -new -keyform ${format} -keyout "keys/${name}.key" \
+    -outform ${format} -out "csr/${name}.csr" -nodes \
     -newkey rsa:${size} -subj "${subj}" ${extra_opts}
 
 echo "SIGNING with ${ca_name}" 1>&2
-openssl x509 -CA "${ca_name}.ca.crt" -CAkey "${ca_name}.ca.key" \
-    -CAserial serial -req -in "${name}.csr" \
-    -outform PEM -out "${name}.crt" -days $days
+openssl x509 -CA "ca/certs/${ca_name}.ca.crt" -CAkey "ca/keys/${ca_name}.ca.key" \
+    -CAserial serial -req -in "csr/${name}.csr" \
+    -outform PEM -out "certs/${name}.crt" -days $days
