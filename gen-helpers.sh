@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 gen_certs() {
     for domain in ${domains}; do

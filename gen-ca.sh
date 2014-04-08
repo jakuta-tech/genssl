@@ -1,7 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 if [ ! -e serial ]; then
     echo -n '01' > serial
+fi
+
+if [ ! -d ./ca/\{keys,certs\} ]; then
+    mkdir -p ./ca/{keys,certs}
 fi
 
 if [ ! -e values.sh ]; then

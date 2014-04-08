@@ -1,7 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 if [ ! -z "${1}" ]; then
     name="${1}"
+fi
+
+if [ ! -d ./\{keys,certs,csr\} ]; then
+    mkdir -p ./{keys,certs,csr}
 fi
 
 if [ ! -e values.sh ]; then
