@@ -10,3 +10,8 @@ gen_certs
 export section="postfix"
 export domains="smtp.peterschmitt.fr"
 gen_certs
+
+export section="person"
+export domain="auth.peterschmitt.fr"
+export persons="FlorentPeterschmitt"
+gen_ident_certs
