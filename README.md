@@ -20,6 +20,16 @@ Then, you know what you have to do :)
 
 Use the `gen_ident_certs`, as described in sample to generate PKCS12 authentication certificates.
 
+## Apache2 server configuration
+
+```
+SSLEngine On
+SSLCertificateFile /etc/ssl/www-localhost.crt
+SSLCertificateKeyFile /etc/ssl/www-localhost.key
+SSLCACertificateFile /etc/ssl/myca.ca.crt
+SSLVerifyClient require
+```
+
 # Override settings with shell environment
 
 Just use the shell: exporting variables used by the "values.sh" script will just make them the default for the rest of your shell's life.
