@@ -1,0 +1,12 @@
+[req]
+distinguished_name  = req_dn
+
+[req_dn]
+countryName_default = FR
+countryName_min     = 2
+countryName_max     = 2
+localityName_default= BiduleVille
+organizationName_default = BiduleOrg
+
+[clientauth]
+extendedKeyUsage    = clientAuth

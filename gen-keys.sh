@@ -27,9 +27,10 @@ fi
 echo "GENERATE $name" 1>&2
 openssl req -new -keyform ${format} -keyout "keys/${name}.key" \
     -outform ${format} -out "csr/${name}.csr" -nodes \
-    -newkey rsa:${size} -subj "${subj}" ${extra_opts}
+    -config openssl.cnf \
+    -newkey rsa:${size} -subj "${subj}" ${extra_opts} || exit 1
 
 echo "SIGNING with ${ca_name}" 1>&2
 openssl x509 -CA "ca/certs/${ca_name}.ca.crt" -CAkey "ca/keys/${ca_name}.ca.key" \
     -CAserial serial -req -in "csr/${name}.csr" \
-    -outform PEM -out "certs/${name}.crt" -days $days
+    -outform PEM -out "certs/${name}.crt" -days $days || exit 1

@@ -21,4 +21,5 @@ fi
 openssl req -new -x509 -keyout "ca/keys/${ca_name}.ca.key" -keyform ${format} \
     -out "ca/certs/${ca_name}.ca.crt" -outform ${format} \
     -days $ca_days -newkey rsa:$ca_size \
-    -subj "${ca_subj}" ${ca_extra_opts}
+    -config openssl.cnf \
+    -subj "${ca_subj}" ${ca_extra_opts} || exit 1
