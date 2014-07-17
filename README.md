@@ -23,11 +23,21 @@ Use the `gen_ident_certs`, as described in sample to generate PKCS12 authenticat
 ## Apache2 server configuration
 
 ```
-SSLEngine On
-SSLCertificateFile /etc/ssl/www-localhost.crt
-SSLCertificateKeyFile /etc/ssl/www-localhost.key
-SSLCACertificateFile /etc/ssl/myca.ca.crt
-SSLVerifyClient require
+SSLEngine               On
+SSLCertificateFile      /etc/ssl/www-localhost.crt
+SSLCertificateKeyFile   /etc/ssl/www-localhost.key
+SSLCACertificateFile    /etc/ssl/myca.ca.crt
+SSLVerifyClient         require
+```
+
+## Nginx
+
+```
+ssl                     on;
+ssl_certificate         /etc/ssl/www-localhost.crt;
+ssl_certificate_key     /etc/ssl/www-localhost.key;
+ssl_client_certificate  /etc/ssl/myca.ca.crt;
+ssl_verify_client       on;
 ```
 
 # Override settings with shell environment
