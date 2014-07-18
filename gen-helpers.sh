@@ -11,7 +11,7 @@ gen_certs() {
 gen_ident_certs() {
     export extra_opts="${extra_opts} -extensions clientauth"
     for person in ${persons}; do
-        export common_name="${domain}"
+        export common_name="${person} at ${domain}"
         export name="${section}-${person}"
         ./gen-keys.sh || exit 1
         . ./values.sh

@@ -1,0 +1,9 @@
+ca
+certs
+keys
+csr
+mygen.sh
+values.sh
+openssl.cnf
+persongen.sh
+serial
