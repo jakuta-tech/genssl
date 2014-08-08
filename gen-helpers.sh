@@ -11,14 +11,22 @@ gen_certs() {
 gen_ident_certs() {
     export extra_opts="${extra_opts} -extensions clientauth"
     for person in ${persons}; do
-        export common_name="${person} at ${domain}"
-        export name="${section}-${person}"
+        person_name=$(echo $person | cut -d: -f1)
+        person_protect=$(echo $person | cut -d: -f2)
+        export common_name="${person_name} at ${domain}"
+        export name="${section}-${person_name}"
         ./gen-keys.sh || exit 1
         . ./values.sh
+        if [ "${person_protect}" = "protect" ]; then
+            person_protect=$(dd if=/dev/urandom bs=4096 count=1 2> /dev/null| md5sum | awk '{print $1}')
+            echo $person_protect > keys/${name}.key.password
+        else
+            person_protect=""
+        fi
         openssl pkcs12 -export -out keys/${name}.p12 \
             -inkey keys/${name}.key \
             -in certs/${name}.crt \
             -certfile ca/certs/${ca_name}.ca.crt \
-            -password pass:"" || exit 1
+            -password pass:"${person_protect}" || exit 1
     done
 }
