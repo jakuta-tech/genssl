@@ -15,9 +15,11 @@ fi
 
 . ./values.sh
 
-if [ ! -e ca/certs/${ca_name}.ca.crt ]||[ ! -e ca/keys/${ca_name}.ca.key ]; then
-    echo "Generate the CA first." 1>&2
-    exit 1
+if [ ! -z "$sign_keys" ]; then
+    if [ ! -e ca/certs/${ca_name}.ca.crt ]||[ ! -e ca/keys/${ca_name}.ca.key ]; then
+        echo "Generate the CA first." 1>&2
+        exit 1
+    fi
 fi
 
 if [ "$protect" = "no" ]; then
@@ -30,7 +32,13 @@ openssl req -new -keyform ${format} -keyout "keys/${name}.key" \
     -config openssl.cnf \
     -newkey rsa:${size} -subj "${subj}" ${extra_opts} || exit 1
 
-echo "SIGNING with ${ca_name}" 1>&2
-openssl x509 -CA "ca/certs/${ca_name}.ca.crt" -CAkey "ca/keys/${ca_name}.ca.key" \
-    -CAserial serial -req -in "csr/${name}.csr" \
-    -outform PEM -out "certs/${name}.crt" -days $days || exit 1
+if [ ! -z "$sign_keys" ]; then
+    echo "SIGNING with ${ca_name}" 1>&2
+    openssl x509 -CA "ca/certs/${ca_name}.ca.crt" -CAkey "ca/keys/${ca_name}.ca.key" \
+        -CAserial serial -req -in "csr/${name}.csr" \
+        -outform PEM -out "certs/${name}.crt" -days $days || exit 1
+else
+    echo "AUTOSIGN ${name}" 1>&2
+    openssl x509 -signkey "keys/${name}.key" -req -in "csr/${name}.csr" \
+        -outform PEM -out "certs/${name}.crt" -days $days || exit 1
+fi

@@ -10,10 +10,11 @@
 
 ##
 # ca_ prefixed vars are for Certificate Authority, other are for simple certs/keys.
+# sign_keys should be empty if you want self-signed certificates
 ##
 export ca_size=${ca_size:-8192}
 export size=${size:-8192}
-
+export sign_keys="YES"
 export format=${format:-"PEM"}
 
 
