@@ -23,7 +23,7 @@ gen_ident_certs() {
         else
             person_protect=""
         fi
-        openssl pkcs12 -export -out keys/${name}.p12 \
+        openssl pkcs12 -export -out p12/${name}.p12 \
             -inkey keys/${name}.key \
             -in certs/${name}.crt \
             -certfile ca/certs/${ca_name}.ca.crt \

@@ -14,7 +14,7 @@
 ##
 export ca_size=${ca_size:-8192}
 export size=${size:-8192}
-export sign_keys="YES"
+export sign_keys="YES" # just export sign_keys=    if you dont want to sign with CA
 export format=${format:-"PEM"}
 
 
