@@ -20,6 +20,13 @@ Then, you know what you have to do :)
 
 Use the `gen_ident_certs`, as described in sample to generate PKCS12 authentication certificates.
 
+If you want to protect your `p12` with a randomly generated password:
+
+```bash
+export persons="PersonName:protect
+PersonName2:protect
+```
+
 ## Apache2 server configuration
 
 ```
