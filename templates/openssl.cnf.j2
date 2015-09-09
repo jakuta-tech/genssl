@@ -1,0 +1,37 @@
+[ ca ]
+default_ca = {{ default_ca }}
+
+[ {{ default_ca }} ]
+certificate     = ca/{{ ca_certificate }}
+database        = ca/{{ default_ca }}.index.txt
+default_days    = {{ ca_default_days }}
+default_md      = {{ ca_default_md }}
+serial          = ca/{{ ca_serial }}
+private_key     = ca/{{ ca_private_key }}
+
+[ req ]
+distinguished_name  = req_distinguished_name
+req_extensions      = v3_req
+default_md          = {{ default_md }}
+default_bits        = {{ default_bits }}
+default_keyfile     = keys/{{ default_keyfile }}
+encrypt_key         = {{ encrypt_key }}
+prompt              = no
+day                 = {{ days }}
+
+[ v3_req ]
+{% for subjectAltName in subjectAltNames %}
+subjectAltName  = {{ subjectAltName }}
+{% endfor %}
+
+[ req_distinguished_name ]
+countryName         = {{ countryName }}
+stateOrProvinceName = {{ state }}
+localityName        = {{ localityName }}
+organizationName    = {{ organizationName }}
+organizationalUnitName= {{ organizationUnitName }}
+commonName          = {{ commonName }}
+emailAddress        = {{ emailAddress }}
+
+[ clientauth ]
+extendedKeyUsage    = clientAuth
