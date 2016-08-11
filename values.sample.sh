@@ -58,7 +58,9 @@ org_unit=${org_unit:-"Florent Peterschmitt"}
 common_name=${common_name:-"localhost"} # FQDN for example.
 email=${email:-"florent@peterschmitt.fr"}
 
+export config=${config:-"openssl.cnf"}
 export extra_opts=${extra_opts:-""}
+export sign_opts=${sign_opts:-""}
 export protect=${protect:-"no"} # Shortcut for -nodes openssl option.
 export name=${name:-"default-ssl"}
 export days=${days:-365}
