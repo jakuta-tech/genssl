@@ -23,7 +23,7 @@ if [ ! -f "ca/keys/${ca_name}.ca.key" ]; then
     openssl req -new -x509 -keyout "ca/keys/${ca_name}.ca.key" -keyform ${format} \
         -out "ca/certs/${ca_name}.ca.crt" -outform ${format} \
         -days $ca_days -newkey rsa:$ca_size \
-        -config openssl.cnf \
+        -config ${config} \
         -subj "${ca_subj}" ${ca_extra_opts} || exit 1
 else
     echo "ALREADY EXISTS (${ca_name})" 1>&2
